@@ -1,0 +1,32 @@
+{% extends '../app.html' %}
+
+{% block content %}
+    <div class="product py-5">
+        <div class="container">
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-3">
+                    <div class="card-border-0">
+                        <a href="{% url 'shopline:product_show' slug=product.slug %}">
+                            <img src="{{ product.image.url }}" alt="" class="card-img-top">
+                        </a>
+
+                        <div class="card-body">
+                            <p class="card-text">
+                                <a href="{% url 'shopline:product_show' slug=product.slug %}">
+                                    {{ product.title }}
+                                </a>
+                            </p>
+
+                            <p class="price card-text">
+                                <i class="fas fa-ruppe-sign"></i>
+                                {{ product.price }} RS
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+{% endblock %}

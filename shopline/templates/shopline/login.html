@@ -1,0 +1,29 @@
+{% extends "./app.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Sign in</div>
+                    <div class="card-body">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li {%if message.tags %}class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <form action="{% url 'shopline:login_user'%}" method="POST">
+                            {% csrf_token %}
+                            {% load crispy_forms_tags %}
+                            {{ form |crispy }}
+
+                            <button class="btn btn-dark" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

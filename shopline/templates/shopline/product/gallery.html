@@ -1,0 +1,48 @@
+{% extends '../app.html' %}
+
+{% block content %}
+
+    <div class="product-gallery py-5">
+        <div class="container">
+        <h1>Product Gallery</h1>
+        <p class="lead">{{ product.title }}</p>
+
+    {% if messages %}
+            {% for message in messages %}
+               <div class=".alert-alert-success alert-dismissible fade show" role="alert">
+                   {{ message }}
+                   <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times</span>
+                   </button>
+               </div>
+            {% endfor %}
+    {% endif %}
+
+        <form action="{% url 'shopline:product_gallery' id=product.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+
+        <button class="btn btn-dark mt-2" type="submit">Add to Gallery</button>
+    </form>
+        <h3 class="pt-2">Gallery</h3>
+    <div class="row">
+        {% for image in gallery %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{ image.image.url }}" alt="" class="card-img-top">
+                <div class="card-body">
+                    <form action="{% url 'shopline:product_gallery_delete' id=image.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-block btn-danger" type="submit">Delete</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+        </div>
+    </div>
+{% endblock %}

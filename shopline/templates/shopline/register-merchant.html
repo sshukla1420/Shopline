@@ -1,0 +1,22 @@
+{% extends "./app.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Join as merchant</div>
+                    <div class="card-body">
+                        <form action="{% url 'shopline:register_merchant'%}" method="POST">
+                            {% csrf_token %}
+                            {% load crispy_forms_tags %}
+                            {{ form | crispy }}
+
+                            <button class="btn btn-dark" type="submit">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
